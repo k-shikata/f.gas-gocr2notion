@@ -11,19 +11,11 @@ const maxContentLines = 70
 const maxContentLength = 1900
 
 export function getContentLines(s: string): string {
-  const maxLines = s.split('\n', maxContentLines)
-  const lines: string[] = []
-  let len = 0
-  for (const line of maxLines) {
-    len = len + Utilities.newBlob(line).getBytes().length
-    if (len >= maxContentLength) {
-      break
-    }
-    lines.push(line)
-    if (lines.length >= maxContentLines) {
-      break
-    }
-  }
+  // 文字列 `s` の先頭から `maxContentLength` バイトまでを抽出
+  const truncatedText = s.substr(0, maxContentLength);
+
+  // 抽出したテキストを行ごとに分割
+  const lines = truncatedText.split('\n', maxContentLines);
 
   return lines.join('\n')
 }
